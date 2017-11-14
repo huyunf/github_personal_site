@@ -5,12 +5,15 @@ from __future__ import unicode_literals
 AUTHOR = 'YF'
 SITENAME = 'YF\'s NoteBook'
 SITEURL = 'https://huyunf.github.io'
-
-PATH = 'content'
-
 TIMEZONE = 'America/Los_Angeles'
-
 DEFAULT_LANG = 'English'
+
+# PATH
+PATH = 'content'
+STATIC_PATHS = ['blog']
+ARTICLE_PATHS = ['blog']
+ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
+ARTICLE_URL = '{date:%Y}/{slug}.html'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
