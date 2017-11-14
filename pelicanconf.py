@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'YF'
 SITENAME = 'YF\'s NoteBook'
-#SITEURL = 'https://huyunf.github.io'
+SITEURL = 'https://huyunf.github.io'
 TIMEZONE = 'America/Los_Angeles'
 DEFAULT_LANG = 'English'
 
@@ -38,3 +38,6 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+# comment from disques
+DISQUS_SITENAME = "huyunf"
