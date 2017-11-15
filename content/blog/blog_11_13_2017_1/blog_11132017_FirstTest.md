@@ -1,9 +1,8 @@
 Title: How to Use Pelican to Generate Static Web Page  
 Date: 2017-11-13 11:38 
-Category: tech  
-Tags: pelican, web, publishing
+Category: Technology  
+Tags: Pelican, web
 Slug: how_to_use_pelican_for_static_web_page 
-Summary: First Blog 
 
 Pelican is a static site generator, written in Python. 
 [Pelican](http://docs.getpelican.com/)

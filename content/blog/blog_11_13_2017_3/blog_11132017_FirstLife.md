@@ -1,7 +1,7 @@
-Title: Memory of Travel to Nepel
+Title: Memory of Travel to Nepal
 Date: 2017-11-13 22:29
-Category: life  
-Tags: travel
+Category: Life  
+Tags: Travel
 Slug: memory_of_travel_to_nepel
 
 # Picture taken in Nepel:
