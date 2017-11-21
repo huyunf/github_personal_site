@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+# Setting
 AUTHOR = 'YF'
 SITENAME = 'Everyday One Step Forward'
 #SITEURL = 'https://huyunf.github.io'
@@ -47,7 +48,7 @@ DISPLAY_CATEGORIES_ON_MENU = True
 
 # plugin
 PLUGIN_PATHS = ["plugins", "pelican-plugins"]
-PLUGINS = ["tag_cloud", "summary","sitemap","neighbors"]
+PLUGINS = ["tag_cloud", "summary","sitemap","neighbors","just_table"]
 
 TAG_CLOUD_STEPS = 4
 TAG_CLOUD_MAX_ITEMS = 100
@@ -73,3 +74,37 @@ DISQUS_SITENAME = "huyunf"
 
 # google track
 GOOGLE_ANALYTICS = 'Tracking ID'
+
+# configure for just table plugin
+JTABLE_TEMPLATE = """
+<table class="table table-hover">
+    {% if caption %}
+    <caption> {{ caption }} </caption>
+    {% endif %}
+    {% if th != 0 %}
+    <thead>
+    <tr>
+        {% if ai == 1 %}
+        <th> No. </th>
+        {% endif %}
+        {% for head in heads %}
+        <th>{{ head }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    {% endif %}
+    <tbody>
+        {% for body in bodies %}
+        <tr>
+            {% if ai == 1 %}
+            <td> {{ loop.index }} </td>
+            {% endif %}
+            {% for entry in body %}
+            <td>{{ entry }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+"""
+JTABLE_SEPARATOR = '|'

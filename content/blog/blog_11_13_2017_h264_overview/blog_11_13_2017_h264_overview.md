@@ -10,11 +10,19 @@ H.264 or MPEG-4 Part 10, Advanced Video Coding (MPEG-4 AVC) is a block-oriented 
 
 Here is the flow chart of H264:
 
-![Photo]({attach}/blog/blog_11_13_2017_h264_overview/h264_flow.png)
+![Photo]({attach}/blog/blog_11_13_2017_h264_overview/h264_flow.png){width=80%}
 
 Doc of [H264 overview]({attach}/blog/blog_11_13_2017_h264_overview/h264overview.pdf)
 
 Doc of [H264 White Paper]({attach}/blog/blog_11_13_2017_h264_overview/H.264_MPEG-4 Part 10 White Paper.pdf)
+
+The flow chart of H264 Encoder:
+
+![Photo]({attach}/blog/blog_11_13_2017_h264_overview/h264_encoder_flow.png){width=80%}
+
+The flow chart of H264 Decoder:
+
+![Photo]({attach}/blog/blog_11_13_2017_h264_overview/h264_decoder_flow.png){width=80%}
 
 Link to tags of the site [h264]({tag}h264)
 
