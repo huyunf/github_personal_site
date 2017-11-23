@@ -7,7 +7,7 @@ Slug: h264_deblocking_algorithm
 #### __Introduction__
 ***
 
-A deblocking filter is a video filter applied to decoded compressed video to improve visual quality and prediction performance by smoothing the sharp edges which can form between macroblocks when block coding techniques are used. Here is an [artical]({attach}/blog/blog_11_21_2017_h264_algorithm/cr1261.pdf) and [web page](https://www.vcodex.com/h264avc-loop-filter/) introduce the H264 in-loop filter.
+A deblocking filter is a video filter applied to decoded compressed video to improve visual quality and prediction performance by smoothing the sharp edges which can form between macroblocks when block coding techniques are used. Here is an [artical]({attach}/blogs/blog_11_21_2017_h264_algorithm/cr1261.pdf) and [web page](https://www.vcodex.com/h264avc-loop-filter/) introduce the H264 in-loop filter.
 
 #### __Description of In-loop De-blocking Filter__
 ***
@@ -26,18 +26,18 @@ Filtering is applied to vertical or horizontal edges of 4x4 blocks in a macroblo
 3. Filter 2 vertical boundaries of each chroma component (i,j)
 4. Filter 2 horizontal boundaries of each chroma component (k,l)
 
-![Photo]({attach}/blog/blog_11_21_2017_h264_algorithm/h264_deblocking_edge.png){width=80%}
+![Photo]({attach}/blogs/blog_11_21_2017_h264_algorithm/h264_deblocking_edge.png){width=80%}
 
 Each filtering operation affects up to three pixels on either side of the boundary. Figure 2 shows 4 pixels on either side of a vertical or horizontal boundary in adjacent blocks p and q (p0,p1,p2,p3 and q0,q1,q2,q3). Depending on the current quantizer, the coding modes of neighbouring blocks and the gradient of image samples across the boundary, several outcomes are possible, ranging from (a) no pixels are filtered to (b) p0, p1, p2, q0, q1, q2 are filtered to produce output pixels P0, P1, P2, Q0, Q1 and Q2.
 
-![Photo]({attach}/blog/blog_11_21_2017_h264_algorithm/h264_deblocking_pixel.png){width=80%}
+![Photo]({attach}/blogs/blog_11_21_2017_h264_algorithm/h264_deblocking_pixel.png){width=80%}
 
 #### __Boundary strength__
 ***
 
 The choice of filtering outcome depends on the boundary strength and on the gradient of image samples across the boundary. The boundary strength parameter Bs is chosen according to the following rules:
 
-![Photo]({attach}/blog/blog_11_21_2017_h264_algorithm/h264_deblocking_BS.png){width=80%}
+![Photo]({attach}/blogs/blog_11_21_2017_h264_algorithm/h264_deblocking_BS.png){width=80%}
 
 #### __Filter decision__
 ***

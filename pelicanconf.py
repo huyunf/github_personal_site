@@ -11,8 +11,8 @@ DEFAULT_LANG = 'English'
 
 # PATH
 PATH = 'content'
-STATIC_PATHS = ['blog']
-ARTICLE_PATHS = ['blog']
+STATIC_PATHS = ['blogs']
+ARTICLE_PATHS = ['blogs']
 ARTICLE_URL = 'blogs/{date:%Y}/{date:%m}/{date:%d}/{slug}/'
 ARTICLE_SAVE_AS = 'blogs/{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
 PAGE_PATHS = ['pages']
