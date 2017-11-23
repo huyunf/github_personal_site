@@ -48,7 +48,7 @@ DISPLAY_CATEGORIES_ON_MENU = True
 
 # plugin
 PLUGIN_PATHS = ["plugins", "pelican-plugins"]
-PLUGINS = ["tag_cloud", "summary","sitemap","neighbors","just_table","render_math"]
+PLUGINS = ["tag_cloud", "render_math", "summary","sitemap","neighbors","just_table"]
 
 TAG_CLOUD_STEPS = 4
 TAG_CLOUD_MAX_ITEMS = 100
