@@ -11,8 +11,8 @@ DEFAULT_LANG = 'English'
 
 # PATH
 PATH = 'content'
-STATIC_PATHS = ['blog']
-ARTICLE_PATHS = ['blog']
+STATIC_PATHS = ['blogs']
+ARTICLE_PATHS = ['blogs']
 ARTICLE_URL = 'blogs/{date:%Y}/{date:%m}/{date:%d}/{slug}/'
 ARTICLE_SAVE_AS = 'blogs/{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
 PAGE_PATHS = ['pages']
@@ -48,7 +48,7 @@ DISPLAY_CATEGORIES_ON_MENU = True
 
 # plugin
 PLUGIN_PATHS = ["plugins", "pelican-plugins"]
-PLUGINS = ["tag_cloud", "summary","sitemap","neighbors","just_table","render_math"]
+PLUGINS = ["tag_cloud", "render_math", "summary","sitemap","neighbors","just_table"]
 
 TAG_CLOUD_STEPS = 4
 TAG_CLOUD_MAX_ITEMS = 100
