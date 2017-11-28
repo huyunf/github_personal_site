@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 # Setting
 AUTHOR = 'YF'
 SITENAME = 'Everyday One Step Forward'
-#SITEURL = 'https://huyunf.github.io'
+SITEURL = 'https://huyunf.github.io'
 TIMEZONE = 'America/Los_Angeles'
 DEFAULT_LANG = 'English'
 
