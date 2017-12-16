@@ -110,6 +110,13 @@ In this chapter, we make a brief review of `x264_encoder_open' function. In this
     
     Initial several parameters and frame list for lookahead routine.
     
+    lookahead is a process before real encoding. It contain the process of abq, rc, slice decision. etc. Once it was malloc, each thread will get it:
+    
+        for( int i = 0; i < h->param.i_threads; i++ )
+            h->thread[i]->lookahead = look;
+    
+    lookahead process contain 3 frame list: ifbuf, next, ofbuf. When frame's loweres prepared, the frame will be put into ifbuf(input buffer list) if multithread support. If there is only one thread, it will be put into next. After lookahead process end, the frame will be put into ofbuf (output buffer list). Then the real encoding process could get frame will lookahead ready from ofbuf list.
+    
 *   _x264_ratecontrol_new_:
     
     Please refer to [x264 rate control]({filename}/blogs/blog_12_05_2017_x264_rate_control/blog_12_05_2017_x264_rate_control.md) 

@@ -7,10 +7,13 @@ Slug: x264_slice_type_decision
 #### __Outline__
 ***
     
+Doc of [MB Tree]({attach}/blogs/blog_12_06_2017_x264_slice_type_decision/MBtree paper.pdf)
     
     
-    
-    
+#### __Process__
+***
+
+* x264_slicetype_decide *
     
     
     
