@@ -33,7 +33,7 @@ This is a one-pass mode designed for real-time streaming.
 
 3. The overflow compensation is the same algorithm as in ABR, but runs after each row of macroblocks instead of per-frame.
 
-*Constant rate-factor*
+*Constant rate-factor (CRF)*
 
 This is a one-pass mode that is optimal if the user does not desire a specific bitrate, but specifies quality instead. It is the same as ABR, except that the scaling factor is a user defined constant and no overflow compensation is done.
 
@@ -69,17 +69,68 @@ For this section, we don't discuss the two pass algorithm, only focus on one pas
         
         rc->lstep = pow( 2, h->param.rc.i_qp_step / 6.0 );
         
+        
+#### __ABR__
+***
 
+*x264_ratecontrol_new @ x264_encoder_open*
 
+    if( rc->b_abr )
+    {
+        /* FIXME ABR_INIT_QP is actually used only in CRF */
+    #define ABR_INIT_QP (( h->param.rc.i_rc_method == X264_RC_CRF ? h->param.rc.f_rf_constant : 24 ) + QP_BD_OFFSET)
+        rc->accum_p_norm = .01;
+        rc->accum_p_qp = ABR_INIT_QP * rc->accum_p_norm;
+        /* estimated ratio that produces a reasonable QP for the first I-frame */
+        rc->cplxr_sum = .01 * pow( 7.0e5, rc->qcompress ) * pow( h->mb.i_mb_count, 0.5 );
+        rc->wanted_bits_window = 1.0 * rc->bitrate / rc->fps;
+        rc->last_non_b_pict_type = SLICE_TYPE_I;
+    }
+    
+where the $qcompress$ should be the compression ratio, value range 0~1.0. The $cplxr\_sum$ is sum of bits*qscale/rceq.
 
+#### __CRF__
+***
 
+*x264_ratecontrol_init_reconfigurable @ x264_ratecontrol_new*
 
+    if( h->param.rc.i_rc_method == X264_RC_CRF )
+    {
+        /* Arbitrary rescaling to make CRF somewhat similar to QP.
+        * Try to compensate for MB-tree's effects as well. */
+        double base_cplx = h->mb.i_mb_count * (h->param.i_bframe ? 120 : 80);
+        double mbtree_offset = h->param.rc.b_mb_tree ? (1.0-h->param.rc.f_qcompress)*13.5 : 0;
+        rc->rate_factor_constant = pow( base_cplx, 1 - rc->qcompress )
+                                / qp2qscale( h->param.rc.f_rf_constant + mbtree_offset + QP_BD_OFFSET );
+    }
+        
 
+#### __Enable VBV Buffer__
+***
 
+*x264_ratecontrol_init_reconfigurable @ x264_ratecontrol_new*
+    
+    if( h->param.rc.i_vbv_max_bitrate > 0 && h->param.rc.i_vbv_buffer_size > 0 )
+    {
+        // vbv parameters initial
+    }
 
+#### __Two Pass__
+***
 
+*parse_zones @ x264_ratecontrol_new*
+    
+    if( parse_zones( h ) < 0 )
+    {
+        //......
+    }
 
+Load stat file and init 2pass algo 
 
+    if( h->param.rc.b_stat_read )
+    {
+        //......
+    }
 
 
 

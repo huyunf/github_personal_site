@@ -37,19 +37,41 @@ The x264 AQ algorithm have 3 mode: `X264_AQ_VARIANCE`, `X264_AQ_AUTOVARIANCE` an
 #### __Process__
 ***
     
-*x264_adaptive_quant_frame @ x264_encoder_encode*
+*initial qp offset -> x264_adaptive_quant_frame @ x264_encoder_encode*
+
+*   _energy_:
 
 Before introduce how x264 get qp adjust value for each MB, we need to introduce how it define energy. In AQ mode calc, it define energy as [variance](https://en.wikipedia.org/wiki/Variance)
 
-    ssd - (sum * sum >> shift)
+    E[X^2] - E[X]^2 = ssd - (sum * sum >> shift)
+
+*   _brief_:
 
 The main purpose of this function is to initialize the parameter `qp_offset` for each MB. 
 
+There are two input parameters control the result of aq mode:
+
+rc.i_aq_mode: (0~3). (1) X264_AQ_NONE[0]->no aq mode (2)X264_AQ_VARIANCE[1]->mb tree mode (3)       X264_AQ_AUTOVARIANCE [3]  (4) X264_AQ_AUTOVARIANCE_BIASED(3)
+
+rc.f_aq_strength: The value should be less than 1 and smaller the better when film has much details and complex structure such as "animation" (0.6) and film with "grain" characteristic (0.5). The value should be larger than 1 and bigger the better when film has much plain area such as "still image" (1.2) or "touhou" (1.3).
+
+*   _step 1: get qp_adj, strength, etc._:
+
+For mode 'X264_AQ_NONE' or f_aq_strength==0, which mean the MB level adaptive quantization is disabled. So the f_qp_offset are set to '0' or external input value. 
+
 For mode `X264_AQ_AUTOVARIANCE` and `X264_AQ_AUTOVARIANCE_BIASED`, first step is to initial `avg_adj`, `strength` and `bias_strength`
 
-$qp\_adj = (energy * bit\_depth\_correction + 1) ^ {0.125}$
+    for( int mb_y = 0; mb_y < h->mb.i_mb_height; mb_y++ )
+        for( int mb_x = 0; mb_x < h->mb.i_mb_width; mb_x++ )
+        {
+            uint32_t energy = x264_ac_energy_mb( h, mb_x, mb_y, frame );
+            float qp_adj = powf( energy * bit_depth_correction + 1, 0.125f );
+            frame->f_qp_offset[mb_x + mb_y*h->mb.i_mb_stride] = qp_adj;
+            avg_adj += qp_adj;
+            avg_adj_pow2 += qp_adj * qp_adj;
+        }
 
-$qp\_adj\_pow2 = qp\_adj * qp\_adj$
+The larger the "energy" (variance), the bigger the qp adjust value.
 
 For these two mode, their strength and average adjustment is obtained by:
 
@@ -62,7 +84,9 @@ For these two mode, their strength and average adjustment is obtained by:
 For mode `X264_AQ_VARIANCE`, the `aq_adj` will be calc later, only need to adjust strength
     
     strength = h->param.rc.f_aq_strength * 1.0397f;
-    
+
+*   _step 2: calcualte qp adjust for each mb_:
+
 The second step is to calc the qp adjustment:
 
     if( h->param.rc.i_aq_mode == X264_AQ_AUTOVARIANCE_BIASED )

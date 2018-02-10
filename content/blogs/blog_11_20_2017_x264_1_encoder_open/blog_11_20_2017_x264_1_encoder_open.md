@@ -39,7 +39,7 @@ In this chapter, we make a brief review of `x264_encoder_open' function. In this
 
 *   _x264_rdo_init_:
         
-    Initialize the bit cost array accordint to CABAC state trasition
+    Initialize the bit cost (MV) array accordint to CABAC state trasition
     
 *   _x264_predict_xxx_init ~ x264_bitstream_xxx_init_:
     
